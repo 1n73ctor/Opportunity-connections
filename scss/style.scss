@@ -1,0 +1,56 @@
+/*=================================================================================
+
+    Theme Name: LeadFold
+    Theme URI: http://moradhamdy.com/morad/leadfold
+    Description: Leadgen Startup Landing Page Template
+    Author: Morad
+    Author URI: http://moradhamdy.com/
+    Version: 1.0
+
+    SCSS Stylesheet
+
+===================================================================================*/
+
+
+
+/**
+ *  styles.css file is divided as the following:
+ *  
+ *  ( 01 ) - General Settings
+ *  ( 02 ) - General Contents
+ *  ( 03 ) - Header
+ *  ( 04 ) - Content
+ *  ( 05 ) - Footer
+ *
+ */
+
+
+
+// Imports ( Others at Bottom )
+// ==================================
+
+
+/**
+ * First, including commons.css which contains
+ * css-helpers codes
+*/
+
+@import "commons";
+
+// ==================================
+
+
+
+
+@import "header";
+@import "banner";
+@import "content";
+@import "footer";
+
+
+
+
+// Imports ( Rest imports )
+// ==================================
+
+// ==================================
