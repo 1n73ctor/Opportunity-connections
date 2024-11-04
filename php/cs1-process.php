@@ -3,7 +3,7 @@ $name = $_POST["cs1Name"];
 $email = $_POST["cs1Email"];
 $phone_number = $_POST["cs1PhoneNum"];
  
-$EmailTo = "moradxd@gmail.com";
+$EmailTo = "surajwithawp.com";
 $Subject = "Message from " . $name;
  
 // prepare email body text
@@ -24,7 +24,7 @@ $success = mail($EmailTo, $Subject, $Body, "From:".$email);
  
 // redirect to success page
 if ($success){
-   echo "success";
+   echo "Email send successfully";
 }else{
     echo "invalid";
 }

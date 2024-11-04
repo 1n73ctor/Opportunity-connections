@@ -4130,6 +4130,9 @@ table tbody td:first-child {
 
 .logo img {
   max-height: 100%;
+  /* height: 200px; */
+  /* width: 150px; */
+  /* padding-top: 20px; */
 }
 
 .logo h3,
@@ -4169,7 +4172,8 @@ table tbody td:first-child {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 43px;
+  height: 100px;
+  padding-top: 10px;
   margin-left: 20px;
   transition: color 0.2996s, top 0.3s;
 }
@@ -5382,7 +5386,7 @@ table tbody td:first-child {
 }
 
 #section-clients-1 .section-content {
-  padding-top: 370px;
+  /* padding-top: 370px; */
 }
 
 @media (max-width: 992px) {
@@ -5735,7 +5739,7 @@ html.scroll-lock .popup-preview {
 
 /* CTA Subscribe 2 */
 .cta-subscribe-1 {
-  width: 430px;
+  /* width: 430px; */
 }
 
 .cta-subscribe-1 input[type="submit"] {
