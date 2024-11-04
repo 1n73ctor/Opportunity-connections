@@ -5742,6 +5742,21 @@ html.scroll-lock .popup-preview {
   /* width: 430px; */
 }
 
+.checkbox-group {
+  display: flex;
+  align-items: start;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.checkbox-control{
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .cta-subscribe-1 input[type="submit"] {
   width: 100%;
   height: 70px;
