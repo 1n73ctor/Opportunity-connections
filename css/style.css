@@ -5417,8 +5417,8 @@ table tbody td:first-child {
 .client-single img {
   position: relative;
   top: 0;
-  width: auto !important;
-  opacity: 0.7;
+  width: 200px !important;
+  opacity: 0.9;
   transition: all 0.15s;
 }
 
@@ -6216,4 +6216,38 @@ select option[disabled] {
   opacity: 1;
 }
 
+.slider-clients {
+  overflow: hidden; /* Hide overflow */
+  white-space: nowrap; /* Prevent line breaks */
+  width: 100%; /* Full width of the container */
+}
+
+.slick-slider1 {
+  display: flex; /* Use flexbox layout */
+  animation: marquee 30s linear infinite; /* Adjust duration as needed */
+  gap: 20px;
+  align-items: center;
+}
+
+.slick-slider1 li {
+  display: inline-block; /* Ensure list items are inline */
+  margin-right: 20px; /* Space between items */
+  
+}
+.slider-clients:hover .slick-slider1 {
+  animation-play-state: paused;
+}
+
+
+
+
+/* Marquee animation */
+@keyframes marquee {
+  from {
+      transform: translateX(100%); /* Start from right */
+  }
+  to {
+      transform: translateX(-100%); /* Move to left */
+  }
+}
 /*# sourceMappingURL=sourcemaps/style.css.map */
