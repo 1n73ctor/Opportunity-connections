@@ -26,7 +26,7 @@ $success = mail($EmailTo, $Subject, $Body, "From:".$email);
 if ($success){
    echo "Email send successfully";
 }else{
-    echo "invalid";
+    echo "Something went wrong";
 }
  
 ?>
