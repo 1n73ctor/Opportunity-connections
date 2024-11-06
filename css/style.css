@@ -4219,6 +4219,7 @@ table tbody td:first-child {
   align-items: center;
   height: 100%;
   transition: all 0.2s;
+  justify-content: space-between;
 }
 
 /* Header Bar 1 */
@@ -6244,10 +6245,16 @@ select option[disabled] {
 /* Marquee animation */
 @keyframes marquee {
   from {
-      transform: translateX(100%); /* Start from right */
+      transform: translateX(80%); /* Start from right */
   }
   to {
-      transform: translateX(-100%); /* Move to left */
+      transform: translateX(-80%); /* Move to left */
   }
+}
+
+.phone{
+  font-size: 32px;
+  font-weight: 700;
+  /* color: white !important; */
 }
 /*# sourceMappingURL=sourcemaps/style.css.map */
