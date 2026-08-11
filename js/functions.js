@@ -373,7 +373,17 @@ function sliderClients() {
 var csNotifications = $(".cs-notifications");
 
 function formCTASubscribe1() {
+	// Accept phone numbers with spaces, dashes, dots, brackets or a leading "+"
+	// and only count the digits (10 to 15, so US and international both pass).
+	$.validator.addMethod("phoneDigits", function (value, element) {
+		var digits = value.replace(/\D/g, "");
+		return this.optional(element) || (digits.length >= 10 && digits.length <= 15);
+	}, "Please enter a valid phone number");
+
 	$("#form-cta-subscribe-1").validate({
+		// The form lives inside a popup, so never skip a field just because the
+		// plugin thinks it is hidden.
+		ignore: [],
 		// rules
 		rules: {
 			cs1Name: {
@@ -386,9 +396,22 @@ function formCTASubscribe1() {
 			},
 			cs1PhoneNum: {
 				required: true,
-				number: true,
-				minlength: 12,
-				maxlength: 12
+				phoneDigits: true
+			},
+			"email-communications": {
+				required: true
+			}
+		},
+		messages: {
+			"email-communications": "Please agree to receive SMS communications"
+		},
+		// Keep the checkbox error under the whole group instead of between the
+		// checkbox and its label.
+		errorPlacement: function (error, element) {
+			if (element.attr("type") === "checkbox") {
+				error.insertAfter(element.closest(".checkbox-group"));
+			} else {
+				error.insertAfter(element);
 			}
 		}
 	});
@@ -411,7 +434,47 @@ function formCTASubscribe1() {
 	});
 }
 
-function cs1SubmitForm(){var s=$("#cs1Name").val(),i=$("#cs1Email").val(),c=$("#cs1PhoneNum").val();$.ajax({type:"POST",url:"./php/cs1-process.php",data:"cs1Name="+s+"&cs1Email="+i+"&cs1PhoneNum="+c,success:function(s){"success"==s?cs1Success():(cs1Error(),cs1SubmitMSG(!1,s))}})}function cs1Success(){var s=csNotifications.data("success-msg"),i=s||"Thank you for your submission :)";$("#form-cta-subscribe-1")[0].reset(),cs1SubmitMSG(!0,'<i class="cs-success-icon fas fa-check"></i>'+i),$(".cs-notifications-content").addClass("sent"),csNotifications.css("opacity",0),csNotifications.slideDown(300).animate({opacity:1},300).delay(5e3).slideUp(400),$("#form-cta-subscribe-1").hasClass("redirected")&&setTimeout(function(){window.location.href="page-thank-you.html"},3e3)}function cs1Error(){csNotifications.css("opacity",0),csNotifications.slideDown(300).animate({opacity:1},300),$(".cs-notifications-content").removeClass("sent")}function cs1SubmitMSG(s,i){var c;c="shake animated",csNotifications.delay(300).addClass(c).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){$(this).removeClass("shake bounce animated")}),csNotifications.children(".cs-notifications-content").html(i)}
+function cs1SubmitForm() {
+	var $form = $("#form-cta-subscribe-1"),
+		$submit = $form.find('input[type="submit"]'),
+		submitLabel = $submit.val();
+
+	$submit.prop("disabled", true).val("Sending...");
+
+	$.ajax({
+		type: "POST",
+		url: "php/cs1-process.php",
+		dataType: "text",
+		// Passing an object lets jQuery url-encode the values, so names or
+		// emails containing "&", "+" or spaces no longer break the request.
+		data: {
+			cs1Name: $("#cs1Name").val(),
+			cs1Email: $("#cs1Email").val(),
+			cs1PhoneNum: $("#cs1PhoneNum").val(),
+			cs1Consent: $("#email-communications").is(":checked") ? "yes" : "no"
+		},
+		success: function (response) {
+			var result = $.trim(response);
+			if (result === "success") {
+				cs1Success();
+			} else {
+				cs1Error();
+				cs1SubmitMSG(false, '<i class="cs-error-icon fas fa-times"></i>' +
+					(result || "Something went wrong, please try again."));
+			}
+		},
+		error: function () {
+			cs1Error();
+			cs1SubmitMSG(false, '<i class="cs-error-icon fas fa-times"></i>' +
+				"We could not send your details right now. Please try again.");
+		},
+		complete: function () {
+			$submit.prop("disabled", false).val(submitLabel);
+		}
+	});
+}
+
+function cs1Success(){var s=csNotifications.data("success-msg"),i=s||"Thank you for your submission :)";$("#form-cta-subscribe-1")[0].reset(),cs1SubmitMSG(!0,'<i class="cs-success-icon fas fa-check"></i>'+i),$(".cs-notifications-content").addClass("sent"),csNotifications.css("opacity",0),csNotifications.slideDown(300).animate({opacity:1},300).delay(5e3).slideUp(400),$("#form-cta-subscribe-1").hasClass("redirected")&&setTimeout(function(){window.location.href="page-thank-you.html"},3e3)}function cs1Error(){csNotifications.css("opacity",0),csNotifications.slideDown(300).animate({opacity:1},300),$(".cs-notifications-content").removeClass("sent")}function cs1SubmitMSG(s,i){var c;c="shake animated",csNotifications.delay(300).addClass(c).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){$(this).removeClass("shake bounce animated")}),csNotifications.children(".cs-notifications-content").html(i)}
 
 // *** Popup Preview *** //
 if ($(".popup-preview").length) {

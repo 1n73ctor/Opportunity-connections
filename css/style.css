@@ -6257,4 +6257,33 @@ select option[disabled] {
   font-weight: 700;
   /* color: white !important; */
 }
+
+/* Logo inside the subscribe popup */
+.popup-preview .box-title .popup-logo {
+  display: block;
+  margin: 0 auto 20px;
+  width: auto;
+  max-width: 220px;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .popup-preview .box-title .popup-logo {
+    max-width: 170px;
+    margin-bottom: 15px;
+  }
+}
+
+/* Inline validation messages for the subscribe form */
+#form-cta-subscribe-1 label.error {
+  display: block;
+  margin-top: 6px;
+  color: #d9534f;
+  font-size: 13px;
+  text-align: left;
+}
+
+#form-cta-subscribe-1 .checkbox-group label.error {
+  margin-left: 0;
+}
 /*# sourceMappingURL=sourcemaps/style.css.map */
