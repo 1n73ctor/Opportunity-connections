@@ -11,8 +11,19 @@ $EmailFrom = "no-reply@opportunityconnectionsusa.com";
 
 header("Content-Type: text/plain; charset=utf-8");
 
+// Opening this file directly in a browser is a smoke test for the host: if you
+// see the message below, PHP is running. If you see this file's source code (or
+// it downloads), the host is serving static files only and the form cannot work.
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo "Invalid request";
+    echo "PHP is running on this host. ";
+    echo function_exists("mail")
+        ? "The mail() function is available."
+        : "WARNING: the mail() function is disabled here, so the form cannot send.";
+    exit;
+}
+
+if (!function_exists("mail")) {
+    echo "Mail sending is disabled on this server.";
     exit;
 }
 
@@ -62,5 +73,8 @@ $success = mail($EmailTo, $Subject, $Body, $headers);
 if ($success) {
     echo "success";
 } else {
-    echo "Something went wrong, please try again.";
+    // mail() returned false: the host accepted the script but its mail server
+    // refused the message (usually a From address that does not exist on the
+    // domain, or sendmail not configured).
+    echo "The mail server rejected the message. Please call us instead.";
 }
